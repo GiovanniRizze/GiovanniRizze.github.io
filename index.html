@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B AP R BAURU</title>
@@ -10,8 +11,8 @@
     background-image: url('fundo para cartões.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: flex;
-
+    background-position: center;
+            
     /* Adicione uma sobreposição escura */
     background-color: rgba(0, 0, 0, 0.5); /* Ajuste o valor alpha (último valor) para controlar a escuridão */
 
@@ -25,10 +26,12 @@
         
         }
 
-        .container {
-            padding: 75px;
-            text-align: center;
-            font-size: 40px;
+        .container h1 {
+            font-size: 30px; /* Tamanho da fonte reduzido para dispositivos móveis */
+        }
+
+        .container p {
+            font-size: 20px; /* Tamanho da fonte reduzido para dispositivos móveis */
         }
 
         .logo {
@@ -70,7 +73,8 @@
         }
 
         .emoji-button span {
-            margin-top: 10px; /* Espaço entre o emoji e o texto */
+            margin-top: 10px;
+            text-align: center; /* Centralize o texto dentro dos botões */
         }
 
         .emoji-button:hover {
@@ -153,27 +157,16 @@
 
         /* Estilo para o contêiner dos botões iniciais (para alinhá-los lado a lado) */
         .botoes-iniciais {
-    display: flex;
-    justify-content: center;
-    gap: 60px; /* Espaço entre os botões (ajustado para 20px) */
-}
+            display: flex;
+            justify-content: center;
+            gap: 60px; /* Espaço entre os botões (ajustado para 20px) */
+        }
 
         /* Estilo para os botões FUSEX, SVP e DENTISTA */
         .botao-inicial {
-            background-color: white; /* Cor de fundo branca */
-            color: black; /* Texto preto */
-            font-family: 'Impact', sans-serif; /* Fonte Impact */
-            border-radius: 10px; /* Borda arredondada */
-            font-size: 60px; /* Tamanho da fonte */
-            padding: 10px; /* Espaçamento interno */
-            width: 500px; /* Tamanho dos botões (pode ajustar conforme necessário) */
-            height: 300px; /* Altura dos botões (pode ajustar conforme necessário) */
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center; /* Centraliza horizontalmente */
-            align-items: center; /* Centraliza verticalmente */
-            gap: 100px;
+        /* ... */
+            width: 250px; /* Reduza o tamanho dos botões para dispositivos móveis */
+            height: 150px; /* Reduza o tamanho dos botões para dispositivos móveis */
         }
 
         /* Estilo para os botões de imagem (removendo a imagem) */
@@ -204,9 +197,11 @@
             justify-content: center;
         }
          /* Estilo para ocultar o botão de voltar inicialmente */
-    #botao-voltar {
-        display: none;
-    }
+        .botao-voltar button {
+            font-size: 30px; /* Tamanho da fonte reduzido para dispositivos móveis */
+            width: 150px; /* Reduza o tamanho do botão de voltar para dispositivos móveis */
+            height: 100px; /* Reduza o tamanho do botão de voltar para dispositivos móveis */
+}
       /* Estilo para o botão "Zerar Contagem" */
       .botao-zerar {
             font-family: sans-serif; /* Fonte desejada para o botão "Zerar Contagem" */
