@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B AP R BAURU</title>
+    <style>
+        body {
+            /* Defina a imagem de fundo e ajuste o tamanho, repetição e posição conforme necessário */
+    background-image: url('fundo para cartões.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: flex;
+
+    /* Adicione uma sobreposição escura */
+    background-color: rgba(0, 0, 0, 0.5); /* Ajuste o valor alpha (último valor) para controlar a escuridão */
+
+    /* Ajuste o modo de mesclagem para tornar a imagem mais escura */
+    background-blend-mode: multiply; /* Isso irá multiplicar a cor escura sobre a imagem */
+
+    /* Estilo de texto e outros estilos adicionais */
+    color: #000; /* Cor do texto no topo da imagem escura */
+    font-family: Arial, sans-serif;
+    text-align: center center;
+        
+        }
+
+        .container {
+            padding: 75px;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        .logo {
+            position: absolute;
+            bottom: 10px;
+        }
+
+        .logo-left {
+            left: 10px;
+        }
+
+        .logo-right {
+            right: 10px;
+            max-width: 100px; /* Defina o tamanho máximo desejado para o logo da direita */
+        }
+
+        .emoji-buttons {
+            display: none;
+            flex-direction: flex;
+            align-items: center; /* Centraliza horizontalmente */
+            justify-content: center; /* Centraliza verticalmente */
+            gap: 30px; /* Espaço entre os botões */
+            margin-top: 70px; /* Espaçamento superior para distanciar os botões do texto */
+        }
+
+        .emoji-button {
+            background-color: #fff; /* Fundo branco */
+            color: #000; /* Texto preto */
+            padding: 10px;
+            font-size: 60px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            width: 400px; /* Defina o tamanho desejado para os botões */
+            height: 300px;
+        }
+
+        .emoji-button span {
+            margin-top: 10px; /* Espaço entre o emoji e o texto */
+        }
+
+        .emoji-button:hover {
+            background-color: #ccc; /* Cor de fundo mais escura ao passar o mouse */
+        }
+
+        .message-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            font-size: 70px;
+        }
+
+        .message {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 40px;
+            color: #000;
+        }
+
+        /* Estilo para tornar o texto em negrito */
+        h1, p {
+            font-weight: bold;
+        }
+
+        /* Posicionamento do campo de senha */
+        #senha-popup {
+            display: none;
+            position: fixed;
+            top: 80%;
+            font-size: 40px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 2; /* Coloca o pop-up na frente do conteúdo */
+        }
+
+        /* Adicione este estilo para o ícone "X" */
+        .fechar-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 40px;
+        }
+
+        .fechar-popup:hover {
+            color: #ff0000; /* Cor quando o mouse passa por cima (neste exemplo, vermelho) */
+        }
+
+        /* Estilo para o pop-up de resultados */
+        #resultados-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 3; /* Coloca o pop-up de resultados na frente */
+        }
+
+        /* Estilo para a palavra "zerar a contagem" */
+        .zerar-contagem {
+            font-family: sans-serif; /* Fonte sans-serif */
+            font-size: 30px;
+        }
+
+        /* Estilo para o contêiner dos botões iniciais (para alinhá-los lado a lado) */
+        .botoes-iniciais {
+    display: flex;
+    justify-content: center;
+    gap: 60px; /* Espaço entre os botões (ajustado para 20px) */
+}
+
+        /* Estilo para os botões FUSEX, SVP e DENTISTA */
+        .botao-inicial {
+            background-color: white; /* Cor de fundo branca */
+            color: black; /* Texto preto */
+            font-family: 'Impact', sans-serif; /* Fonte Impact */
+            border-radius: 10px; /* Borda arredondada */
+            font-size: 60px; /* Tamanho da fonte */
+            padding: 10px; /* Espaçamento interno */
+            width: 500px; /* Tamanho dos botões (pode ajustar conforme necessário) */
+            height: 300px; /* Altura dos botões (pode ajustar conforme necessário) */
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            gap: 100px;
+        }
+
+        /* Estilo para os botões de imagem (removendo a imagem) */
+        .botao-inicial img {
+            display: none; /* Oculta a imagem */
+        }
+       /* Estilo para as divs de resultados das votações */
+       .resultado-categoria {
+            display: block;
+            margin-bottom: 40px; /* Espaçamento entre as categorias */
+        }
+
+        /* Estilo para os resultados de cada categoria */
+        .resultado-categoria p {
+            margin: 0;
+            padding: 5px;
+        }
+        
+        .white-bg {
+            background-color: white;
+            border-radius: 7px; /* Ajuste o valor da borda arredondada conforme necessário */
+            padding: 9px; /* Ajuste o preenchimento interno conforme necessário */
+            margin-bottom: 20px; /* Adicione espaço abaixo dos textos */
+        }
+        /* Estilo para centralizar os botões horizontalmente */
+        .center-buttons {
+            display: flex;
+            justify-content: center;
+        }
+         /* Estilo para ocultar o botão de voltar inicialmente */
+    #botao-voltar {
+        display: none;
+    }
+      /* Estilo para o botão "Zerar Contagem" */
+      .botao-zerar {
+            font-family: sans-serif; /* Fonte desejada para o botão "Zerar Contagem" */
+        }
+    </style>
+</head>
+<body>
+     <!-- Botão de voltar (seta) -->
+     <div class="center-buttons" id="botao-voltar">
+        <button class="emoji-button" onclick="voltarParaBotoesIniciais()">
+            ←
+        </button>
+    </div>
+    <div class="container">
+        <h1 class="white-bg">BASE DE APOIO REGIONAL DE BAURU</h1>
+        <p class="white-bg">A B AP R BAURU se importa pelo atendimento e avaliação do usuário.</p>
+    </div>
+    
+    <div class="center-buttons">
+        <div class="botoes-iniciais" id="botoes-iniciais">
+            <button class="botao-inicial" onclick="exibirAvaliacao('SVP')">SVP</button>
+            <button class="botao-inicial" onclick="exibirAvaliacao('FUSEX')">FUSEX</button>
+            <button class="botao-inicial" onclick="exibirAvaliacao('DENTISTA')">DENTISTA</button>
+        </div>
+    </div>
+
+    <!-- Centralize os botões de avaliação vertical e horizontalmente dentro desta div -->
+    <div class="center-buttons">
+        <div class="emoji-buttons" id="emoji-buttons-SVP">
+            <button class="emoji-button" onclick="contarVoto('Ruim', 'SVP'); ocultarAvaliacao('SVP')">😠 <span>Ruim</span></button>
+            <button class="emoji-button" onclick="contarVoto('Bom', 'SVP'); ocultarAvaliacao('SVP')">😊 <span> Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Muito Bom', 'SVP'); ocultarAvaliacao('SVP')">😃 <span> Muito Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Perfeito', 'SVP'); ocultarAvaliacao('SVP')">😁 <span> Excelente</span></button>
+        </div>
+    </div>
+        <!-- Botões de avaliação -->
+        <div class="emoji-buttons" id="emoji-buttons-SVP">
+            <button class="emoji-button" onclick="contarVoto('Ruim', 'SVP'); ocultarAvaliacao('SVP')">😠 <span> Ruim</span></button>
+            <button class="emoji-button" onclick="contarVoto('Bom', 'SVP'); ocultarAvaliacao('SVP')">😊 <span> Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Muito Bom', 'SVP'); ocultarAvaliacao('SVP')">😃 <span> Muito Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Perfeito', 'SVP'); ocultarAvaliacao('SVP')">😁 <span> Excelente</span></button>
+        </div>
+        <div class="emoji-buttons" id="emoji-buttons-FUSEX">
+            <button class="emoji-button" onclick="contarVoto('Ruim', 'FUSEX'); ocultarAvaliacao('FUSEX')">😠 <span> Ruim</span></button>
+            <button class="emoji-button" onclick="contarVoto('Bom', 'FUSEX'); ocultarAvaliacao('FUSEX')">😊 <span> Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Muito Bom', 'FUSEX'); ocultarAvaliacao('FUSEX')">😃 <span> Muito Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Perfeito', 'FUSEX'); ocultarAvaliacao('FUSEX')">😁 <span> Excelente</span></button>
+        </div>
+        <div class="emoji-buttons" id="emoji-buttons-DENTISTA">
+            <button class="emoji-button" onclick="contarVoto('Ruim', 'DENTISTA'); ocultarAvaliacao('DENTISTA')">😠 <span> Ruim</span></button>
+            <button class="emoji-button" onclick="contarVoto('Bom', 'DENTISTA'); ocultarAvaliacao('DENTISTA')">😊 <span> Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Muito Bom', 'DENTISTA'); ocultarAvaliacao('DENTISTA')">😃 <span> Muito Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Perfeito', 'DENTISTA'); ocultarAvaliacao('DENTISTA')">😁 <span> Excelente</span></button>
+        </div>
+    </div>
+    <div class="message-overlay" id="mensagemAgradecimento">
+        <div class="message">Agradecemos sua opinião.</div>
+    </div>
+    <!-- Logo à esquerda inferior -->
+    <img src="b ap r bauru.png" alt="Logo Direita" class="logo logo-right" onclick="exibirPopupSenha()">
+
+    <!-- Pop-up de senha -->
+    <div id="senha-popup">
+        <div class="fechar-popup" onclick="fecharPopupSenha()">X</div>
+        <h2>Insira a senha</h2>
+        <input type="password" id="senha" placeholder="Digite a senha">
+        <button onclick="verificarSenha()">Entrar</button>
+    </div>
+
+     <!-- Pop-up de resultados -->
+     <div id="resultados-popup">
+        <div class="fechar-popup" onclick="fecharPopupResultados()">X</div>
+        <div class="center-buttons">
+            <button class="botao-inicial botao-zerar" onclick="zerarContagem()">Zerar Contagem</button>
+        </div>    
+        <h2>Resultados das Votações</h2>
+        <!-- Categoria SVP -->
+        <div class="resultado-categoria">
+            <p>SVP: Ruim = <span id="votosRuimSVP">0</span>, Bom = <span id="votosBomSVP">0</span>, Muito Bom = <span id="votosMuitoBomSVP">0</span>, Excelente = <span id="votosPerfeitoSVP">0</span></p>
+        </div>
+        <!-- Categoria FUSEX -->
+        <div class="resultado-categoria">
+            <p>FUSEX: Ruim = <span id="votosRuimFUSEX">0</span>, Bom = <span id="votosBomFUSEX">0</span>, Muito Bom = <span id="votosMuitoBomFUSEX">0</span>, Excelente = <span id="votosPerfeitoFUSEX">0</span></p>
+        </div>
+        <!-- Categoria DENTISTA -->
+        <div class="resultado-categoria">
+            <p>DENTISTA: Ruim = <span id="votosRuimDENTISTA">0</span>, Bom = <span id="votosBomDENTISTA">0</span>, Muito Bom = <span id="votosMuitoBomDENTISTA">0</span>, Excelente = <span id="votosPerfeitoDENTISTA">0</span></p>
+        </div>
+        
+</body>
+<script>
+  function zerarContagem() {
+    // Zera a contagem de votos em todas as categorias
+    contagemVotosSVP = {
+        Ruim: 0,
+        Bom: 0,
+        'Muito Bom': 0,
+        Perfeito: 0
+    };
+    contagemVotosFUSEX = {
+        Ruim: 0,
+        Bom: 0,
+        'Muito Bom': 0,
+        Perfeito: 0
+    };
+    contagemVotosDENTISTA = {
+        Ruim: 0,
+        Bom: 0,
+        'Muito Bom': 0,
+        Perfeito: 0
+    };
+    
+    atualizarContagem(); // Atualiza a contagem após zerar
+    alert("A contagem de votos foi zerada com sucesso.");
+    fecharPopupResultados(); // Fecha o pop-up de resultados
+}
+    let contagemVotos = {
+        Ruim: 0,
+        Bom: 0,
+        'Muito Bom': 0,
+        Perfeito: 0
+    };
+
+    // Contagem de votos para cada categoria (SVP, FUSEX, DENTISTA)
+    let contagemVotosSVP = { ...contagemVotos };
+    let contagemVotosFUSEX = { ...contagemVotos };
+    let contagemVotosDENTISTA = { ...contagemVotos };
+
+    // Recupere a contagem de votos do armazenamento local, se existir
+    if (localStorage.getItem('contagemVotos')) {
+        contagemVotos = JSON.parse(localStorage.getItem('contagemVotos'));
+        contagemVotosSVP = JSON.parse(localStorage.getItem('contagemVotosSVP')) || { ...contagemVotos };
+        contagemVotosFUSEX = JSON.parse(localStorage.getItem('contagemVotosFUSEX')) || { ...contagemVotos };
+        contagemVotosDENTISTA = JSON.parse(localStorage.getItem('contagemVotosDENTISTA')) || { ...contagemVotos };
+        atualizarContagem();
+    }
+
+    function contarVoto(avaliacao, categoria) {
+        contagemVotos[avaliacao]++;
+        // Atualizar a contagem da categoria correspondente
+        if (categoria === 'SVP') {
+            contagemVotosSVP[avaliacao]++;
+        } else if (categoria === 'FUSEX') {
+            contagemVotosFUSEX[avaliacao]++;
+        } else if (categoria === 'DENTISTA') {
+            contagemVotosDENTISTA[avaliacao]++;
+        }
+        atualizarContagem();
+        mostrarMensagem('Agradecemos sua opinião');
+    }
+
+    function atualizarContagem() {
+        console.log('Contagem de Votos:', contagemVotos);
+        // Salvar a contagem de votos no armazenamento local
+        localStorage.setItem('contagemVotos', JSON.stringify(contagemVotos));
+        localStorage.setItem('contagemVotosSVP', JSON.stringify(contagemVotosSVP));
+        localStorage.setItem('contagemVotosFUSEX', JSON.stringify(contagemVotosFUSEX));
+        localStorage.setItem('contagemVotosDENTISTA', JSON.stringify(contagemVotosDENTISTA));
+    }
+
+    function mostrarMensagem(mensagem) {
+        document.getElementById('mensagemAgradecimento').style.display = 'flex';
+
+        setTimeout(function () {
+            document.getElementById('mensagemAgradecimento').style.display = 'none';
+        }, 2000); // A mensagem desaparecerá após 2 segundos (2000 milissegundos)
+    }
+
+    function exibirAvaliacao(tipo) {
+        // Oculta todos os conjuntos de botões de avaliação
+        document.querySelectorAll('.emoji-buttons').forEach(function (element) {
+            element.style.display = 'none';
+        });
+
+        // Mostra o conjunto de botões de avaliação correspondente ao tipo selecionado
+        document.getElementById(`emoji-buttons-${tipo}`).style.display = 'flex';
+
+        // Oculta os botões iniciais
+        document.getElementById('botoes-iniciais').style.display = 'none';
+    }
+
+    function ocultarAvaliacao(tipo) {
+        // Oculta o conjunto de botões de avaliação correspondente ao tipo selecionado
+        document.getElementById(`emoji-buttons-${tipo}`).style.display = 'none';
+
+        // Mostra os botões iniciais
+        document.getElementById('botoes-iniciais').style.display = 'flex';
+    }
+
+    function exibirPopupSenha() {
+        document.getElementById('senha-popup').style.display = 'block';
+    }
+
+    function fecharPopupSenha() {
+        document.getElementById('senha-popup').style.display = 'none';
+        document.getElementById('senha').value = ''; // Limpa o campo de senha
+    }
+
+    function verificarSenha() {
+        const senhaCorreta = "senha123"; // Defina a senha correta
+        const senhaDigitada = document.getElementById('senha').value;
+
+        if (senhaDigitada === senhaCorreta) {
+            // Senha correta, permitir acesso aos votos
+            document.getElementById('senha-popup').style.display = 'none';
+            document.getElementById('senha').value = ''; // Limpa o campo de senha
+            exibirPopupResultados();
+        } else {
+            alert("Senha incorreta. Tente novamente.");
+            fecharPopupSenha(); // Fecha o pop-up em caso de senha incorreta
+        }
+    }
+
+    function exibirPopupResultados() {
+        // Atualizar os resultados antes de exibir o pop-up
+        atualizarResultados();
+        document.getElementById('resultados-popup').style.display = 'block';
+    }
+
+    function fecharPopupResultados() {
+        document.getElementById('resultados-popup').style.display = 'none';
+    }
+
+    function atualizarResultados() {
+        // Atualizar os resultados das votações para cada categoria
+        document.getElementById('votosRuimSVP').textContent = contagemVotosSVP.Ruim;
+        document.getElementById('votosBomSVP').textContent = contagemVotosSVP.Bom;
+        document.getElementById('votosMuitoBomSVP').textContent = contagemVotosSVP['Muito Bom'];
+        document.getElementById('votosPerfeitoSVP').textContent = contagemVotosSVP.Perfeito;
+
+        document.getElementById('votosRuimFUSEX').textContent = contagemVotosFUSEX.Ruim;
+        document.getElementById('votosBomFUSEX').textContent = contagemVotosFUSEX.Bom;
+        document.getElementById('votosMuitoBomFUSEX').textContent = contagemVotosFUSEX['Muito Bom'];
+        document.getElementById('votosPerfeitoFUSEX').textContent = contagemVotosFUSEX.Perfeito;
+
+        document.getElementById('votosRuimDENTISTA').textContent = contagemVotosDENTISTA.Ruim;
+        document.getElementById('votosBomDENTISTA').textContent = contagemVotosDENTISTA.Bom;
+        document.getElementById('votosMuitoBomDENTISTA').textContent = contagemVotosDENTISTA['Muito Bom'];
+        document.getElementById('votosPerfeitoDENTISTA').textContent = contagemVotosDENTISTA.Perfeito;
+    }
+    // Função para exibir o botão de voltar quando os botões de avaliação são exibidos
+    function exibirBotaoVoltar() {
+        document.getElementById('botao-voltar').style.display = 'block';
+    }
+
+    // Função para voltar para os botões iniciais
+    function voltarParaBotoesIniciais() {
+        // Oculta todos os conjuntos de botões de avaliação
+        document.querySelectorAll('.emoji-buttons').forEach(function (element) {
+            element.style.display = 'none';
+        });
+
+        // Mostra os botões iniciais
+        document.getElementById('botoes-iniciais').style.display = 'flex';
+
+        // Oculta o botão de voltar novamente
+        document.getElementById('botao-voltar').style.display = 'none';
+    }
+</script>
+</html>
