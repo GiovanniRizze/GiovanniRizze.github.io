@@ -222,7 +222,7 @@
     </div>
     <div class="container">
         <h1 class="white-bg">BASE DE APOIO REGIONAL DE BAURU</h1>
-        <p class="white-bg">A B AP R BAURU se importa pelo atendimento e avaliação do usuário.</p>
+        <p class="white-bg">Sua opnião é muio imporante!</p>
     </div>
     
     <div class="center-buttons">
@@ -230,6 +230,7 @@
             <button class="botao-inicial" onclick="exibirAvaliacao('SVP')">SVP</button>
             <button class="botao-inicial" onclick="exibirAvaliacao('FUSEX')">FUSEX</button>
             <button class="botao-inicial" onclick="exibirAvaliacao('DENTISTA')">DENTISTA</button>
+            <button class="botao-inicial" onclick="exibirAvaliacao('SFPC')">SFPC</button>
         </div>
     </div>
 
@@ -260,6 +261,12 @@
             <button class="emoji-button" onclick="contarVoto('Bom', 'DENTISTA'); ocultarAvaliacao('DENTISTA')">😊 <span> Bom</span></button>
             <button class="emoji-button" onclick="contarVoto('Muito Bom', 'DENTISTA'); ocultarAvaliacao('DENTISTA')">😃 <span> Muito Bom</span></button>
             <button class="emoji-button" onclick="contarVoto('Perfeito', 'DENTISTA'); ocultarAvaliacao('DENTISTA')">😁 <span> Excelente</span></button>
+        </div>
+        <div class="emoji-buttons" id="emoji-buttons-SFPC">
+            <button class="emoji-button" onclick="contarVoto('Ruim', 'SFPC'); ocultarAvaliacao('SFPC')">😠 <span> Ruim</span></button>
+            <button class="emoji-button" onclick="contarVoto('Bom', 'SFPC'); ocultarAvaliacao('SFPC')">😊 <span> Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Muito Bom', 'SFPC'); ocultarAvaliacao('SFPC')">😃 <span> Muito Bom</span></button>
+            <button class="emoji-button" onclick="contarVoto('Perfeito', 'SFPC'); ocultarAvaliacao('SFPC')">😁 <span> Excelente</span></button>
         </div>
     </div>
     <div class="message-overlay" id="mensagemAgradecimento">
@@ -295,6 +302,10 @@
         <div class="resultado-categoria">
             <p>DENTISTA: Ruim = <span id="votosRuimDENTISTA">0</span>, Bom = <span id="votosBomDENTISTA">0</span>, Muito Bom = <span id="votosMuitoBomDENTISTA">0</span>, Excelente = <span id="votosPerfeitoDENTISTA">0</span></p>
         </div>
+        <!-- Categoria SFPC -->
+        <div class="resultado-categoria">
+            <p>SFPC: Ruim = <span id="votosRuimSFPC">0</span>, Bom = <span id="votosBomSFPC">0</span>, Muito Bom = <span id="votosMuitoBomSFPC">0</span>, Excelente = <span id="votosPerfeitoSFPC">0</span></p>
+        </div>
         
 </body>
 <script>
@@ -318,6 +329,12 @@
         'Muito Bom': 0,
         Perfeito: 0
     };
+        contagemVotosSFPC = {
+        Ruim: 0,
+        Bom: 0,
+        'Muito Bom': 0,
+        Perfeito: 0
+    };
     
     atualizarContagem(); // Atualiza a contagem após zerar
     alert("A contagem de votos foi zerada com sucesso.");
@@ -330,10 +347,11 @@
         Perfeito: 0
     };
 
-    // Contagem de votos para cada categoria (SVP, FUSEX, DENTISTA)
+    // Contagem de votos para cada categoria (SVP, FUSEX, DENTISTA, SFPC)
     let contagemVotosSVP = { ...contagemVotos };
     let contagemVotosFUSEX = { ...contagemVotos };
     let contagemVotosDENTISTA = { ...contagemVotos };
+    let contagemVotosSFPC = { ...contagemVotos };
 
     // Recupere a contagem de votos do armazenamento local, se existir
     if (localStorage.getItem('contagemVotos')) {
@@ -341,6 +359,7 @@
         contagemVotosSVP = JSON.parse(localStorage.getItem('contagemVotosSVP')) || { ...contagemVotos };
         contagemVotosFUSEX = JSON.parse(localStorage.getItem('contagemVotosFUSEX')) || { ...contagemVotos };
         contagemVotosDENTISTA = JSON.parse(localStorage.getItem('contagemVotosDENTISTA')) || { ...contagemVotos };
+        contagemVotosSFPC = JSON.parse(localStorage.getItem('contagemVotosSFPC')) || { ...contagemVotos };
         atualizarContagem();
     }
 
@@ -353,6 +372,8 @@
             contagemVotosFUSEX[avaliacao]++;
         } else if (categoria === 'DENTISTA') {
             contagemVotosDENTISTA[avaliacao]++;
+        } else if (categoria === 'SFPC') {
+            contagemVotosSFPC[avaliacao]++;
         }
         atualizarContagem();
         mostrarMensagem('Agradecemos sua opinião');
@@ -365,6 +386,7 @@
         localStorage.setItem('contagemVotosSVP', JSON.stringify(contagemVotosSVP));
         localStorage.setItem('contagemVotosFUSEX', JSON.stringify(contagemVotosFUSEX));
         localStorage.setItem('contagemVotosDENTISTA', JSON.stringify(contagemVotosDENTISTA));
+        localStorage.setItem('contagemVotosSFPC', JSON.stringify(contagemVotosSFPC));
     }
 
     function mostrarMensagem(mensagem) {
@@ -446,6 +468,11 @@
         document.getElementById('votosBomDENTISTA').textContent = contagemVotosDENTISTA.Bom;
         document.getElementById('votosMuitoBomDENTISTA').textContent = contagemVotosDENTISTA['Muito Bom'];
         document.getElementById('votosPerfeitoDENTISTA').textContent = contagemVotosDENTISTA.Perfeito;
+
+        document.getElementById('votosRuimSFPC').textContent = contagemVotosSFPC.Ruim;
+        document.getElementById('votosBomSFPC').textContent = contagemVotosSFPC.Bom;
+        document.getElementById('votosMuitoBomSFPC').textContent = contagemVotosSFPC['Muito Bom'];
+        document.getElementById('votosPerfeitoSFPC').textContent = contagemVotosSFPC.Perfeito;
     }
     // Função para exibir o botão de voltar quando os botões de avaliação são exibidos
     function exibirBotaoVoltar() {
